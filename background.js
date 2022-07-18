@@ -9,18 +9,30 @@ browser.menus.create({
 var popupParameters;
 
 browser.menus.onClicked.addListener((info, tab) => {
-  popupParameters = {
-    tabId: tab.id,
-    frameId: info.frameId,
-    targetElementId: info.targetElementId,
-  };
+  browser.tabs.sendMessage(tab.id, { name: "getClickedEl", targetElementId: info.targetElementId },
+    { frameId: info.frameId }, data => {
+      // console.log(`${data.value}`);
+      // elt.value = data.value;
+    });
+
+  // popupParameters = {
+  //   tabId: tab.id,
+  //   frameId: info.frameId,
+  //   targetElementId: info.targetElementId,
+  // };
   // console.log('onClicked');
-  // console.log(info.linkText);
+  // // console.log(info.linkText);
   // console.log(info);
-  let targetElementId = info.targetElementId;
-  console.log(targetElementId);
-  let elem = browser.menus.getTargetElement(targetElementId);
-  console.log(elem);
+  // let targetElementId = info.targetElementId;
+  // console.log(targetElementId);
+  // let elem = browser.menus.getTargetElement(targetElementId);
+  // console.log(elem);
+
+  // let huii = browser.tabs.executeScript(tab.id, {
+  //   frameId: info.frameId,
+  //   code: `browser.menus.getTargetElement(${info.targetElementId});`,
+  // });
+  // console.log(huii);
   // if (info.menuItemId === openLabelledId) {
   //   browser.tabs.update(tab.id, {
   //     url: info.linkUrl
@@ -34,19 +46,18 @@ browser.runtime.onMessage.addListener(async (msg) => {
 });
 
 function updateMenuItem(linkHostname, alt) {
-  // console.log('updateMenuItem');
   browser.menus.update(openLabelledId, {
-    title: `Open (${linkHostname}, ${alt})`
+    title: `Show alt text`
   });
   browser.menus.refresh();
 }
 
 browser.menus.onShown.addListener(info => {
   console.log('onShown');
+  if (info.mediaType != 'image') {
+    return;
+  }
   console.log(info);
-  // if (!info.linkUrl) {
-  //   return;
-  // }
   let linkElement = document.createElement("a");
   linkElement.href = info.linkUrl;
   updateMenuItem(linkElement.hostname, info.alt);

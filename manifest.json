@@ -1,0 +1,26 @@
+{
+
+    "description": "Das ist eine Beschreibung",
+    "manifest_version": 2,
+    "name": "ImageAltViewExtension",
+    "version": "0.1",
+    "homepage_url": "https://github.com/MiVoth/ImageAltViewExtension/",
+    "icons": {
+      "48": "icons/menu-icon-48.png"
+    },
+  
+    "content_scripts": [
+      {
+        "matches": ["*://*.mozilla.org/*", "*://*.jw.org/*"],
+        "js": ["content.js"]
+      }
+    ],
+    "background": {
+        "scripts": ["background.js"]
+      },
+      
+      "permissions": [
+        "menus", "contextMenus", "activeTab"
+      ]
+  
+  }

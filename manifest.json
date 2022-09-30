@@ -1,26 +1,42 @@
 {
-
-    "description": "Describes the project",
-    "manifest_version": 2,
-    "name": "ImageAltViewExtension",
-    "version": "0.2",
-    "homepage_url": "https://github.com/MiVoth/ImageAltViewExtension/",
-    "icons": {
-      "48": "icons/menu-icon-48.png"
-    },
-  
-    "content_scripts": [
-      {
-        "matches": ["*://*.mozilla.org/*", "*://*.jw.org/*"],
-        "js": ["content.js"]
-      }
-    ],
-    "background": {
-        "scripts": ["background.js"]
-      },
-      
-      "permissions": [
-        "menus", "contextMenus", "activeTab"
+  "description": "Shows the alt-text of Images",
+  "manifest_version": 2,
+  "name": "ImageAltViewExtension",
+  "version": "0.2",
+  "homepage_url": "https://github.com/MiVoth/ImageAltViewExtension/",
+  "icons": {
+    "48": "icons/menu-icon-48.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.mozilla.org/*",
+        "*://*.jw.org/*"
+      ],
+      "js": [
+        "content.js"
       ]
-  
-  }
+    }
+  ],
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
+  "options_ui": {
+    "page": "options.html",
+    "browser_style": true
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "image-alt-view-ext@mivoth.de",
+      "strict_min_version": "57.0a1"
+    }
+  },
+  "permissions": [
+    "menus",
+    "contextMenus",
+    "activeTab",
+    "storage"
+  ]
+}

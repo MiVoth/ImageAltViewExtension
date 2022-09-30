@@ -16,6 +16,12 @@ browser.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     elm.style['border'] = 'black solid thin';
     elm.style['padding'] = '.5rem 0.75rem';
     const text = document.createElement('span');
+
+    // var gettingItem = browser.storage.sync.get('colour');
+    // gettingItem.then((res) => {
+    //     text.innerHTML = res.colour || 'Firefox red';
+    // }).catch(err => console.error(err));
+
     text.innerHTML = `${targ.alt}`;
 
     const link = document.createElement('a');
